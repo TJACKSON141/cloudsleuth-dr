@@ -1,0 +1,42 @@
+{
+    "schemaVersion": "0.3",
+    "description": "Failover automation for cross-region recovery",
+    "parameters": {
+      "InstanceIds": {
+        "type": "String",
+        "description": "The instance ID to recover"
+      },
+      "DesiredState": {
+        "type": "String",
+        "description": "The desired state of the instance (e.g., running)"
+      }
+    },
+    "mainSteps": [
+      {
+        "name": "StopInstance",
+        "action": "aws:changeInstanceState",
+        "inputs": {
+          "InstanceIds": "{{ InstanceIds }}",
+          "DesiredState": "stopped"
+        }
+      },
+      {
+        "name": "StartInstance",
+        "action": "aws:changeInstanceState",
+        "inputs": {
+          "InstanceIds": "{{ InstanceIds }}",
+          "DesiredState": "{{ DesiredState }}"
+        }
+      },
+      {
+        "name": "VerifyInstanceState",
+        "action": "aws:assertAwsResourceProperty",
+        "inputs": {
+          "InstanceIds": "{{ InstanceIds }}",
+          "propertySelector": "$.State.Name",
+          "desiredValue": "{{ DesiredState }}"
+        }
+      }
+    ]
+  }
+  
