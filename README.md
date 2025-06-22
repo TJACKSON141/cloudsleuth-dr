@@ -1,5 +1,5 @@
 # cloudsleuth-dr
-A disaster recovery implementation with a fault-tolerant infrastructure that maintains eendpoint consistency during failover.
+A disaster recovery implementation with a fault-tolerant infrastructure that maintains endpoint consistency during failover.
 
 **Project Brief**
 
