@@ -1,107 +1,74 @@
-# cloudsleuth-dr
-A disaster recovery implementation with a fault-tolerant infrastructure that maintains endpoint consistency during failover.
+# 🌩️ CloudSleuth - AWS Disaster Recovery with Global Accelerator
 
-**Project Brief**
+## 📖 Project Overview
 
-**Understanding the Client's Vision**
+This project demonstrates a **real-world disaster recovery (DR) solution** for AWS that maintains **consistent endpoints during failover** using **AWS Global Accelerator**. Unlike traditional DNS-based failover, this architecture ensures seamless traffic redirection while preserving static IP addresses.
 
-CloudSleuth aims to demonstrate a real-world disaster recovery implementation where an organization requires fault-tolerant infrastructure that maintains endpoint consistency during failover. This project has tested my ability to implement infrastructure as code, configure monitoring systems, and develop automated recovery mechanisms using AWS Global Accelerator.
+The solution was built with **Terraform** for infrastructure as code, **CloudWatch & Route 53** for monitoring, and **AWS Lambda + SSM Automation** for automated failover.
 
-The client requires their web application to remain accessible via the same endpoints even during regional failures, while meeting specific recovery objectives and maintaining a cost-efficient architecture.
+## 🏗️ Architecture Overview
 
-**The Problem Landscape
-Let's examine the key challenges this project addresses:**
+![CloudSleuth AWS Disaster Recovery Architecture](architecture/CloudSleuth%20Architecture.jpeg)
 
-- Infrastructure Deployment Challenges
+## 🚀 Project Phases
 
-- Terraform configurations requiring multi-region resource management
+### **Phase 1 – Infrastructure as Code**
 
-- Dependencies between resources across different AWS regions
+- Multi-region Terraform configurations
+- Networking setup in both regions
+- Global Accelerator for static endpoints
+- Active primary EC2 + standby secondary EC2
 
-- Proper provider configuration for cross-region operations
+### **Phase 2 – Monitoring**
 
-- Monitoring and Detection Considerations
+- Route 53 health checks for failure detection
+- CloudWatch alarms for alerting
+- SNS + Lambda integration
 
-- Configuring appropriate health checks for accurate failure detection
+### **Phase 3 – Automated Recovery**
 
-- Setting CloudWatch alarm thresholds to avoid false positives
+- Lambda triggers SSM automation document
+- Starts secondary EC2 instance
+- Updates Global Accelerator endpoint weights
+- Ensures client IP preservation
 
-- Creating notification pathways that trigger automated responses
+### **Phase 4 – Testing & Validation**
 
-- Failover Automation Complexities
+- Simulated failure of primary server
+- Verified automatic detection & failover
+- Measured recovery time & endpoint consistency
+- Confirmed end-to-end automated recovery
 
-- Ensuring Lambda functions include proper AWS SDK configurations
+## ✅ Success Criteria
 
-- Formatting SSM document parameters correctly for API compatibility
+- Multi-region infrastructure deployed via Terraform
+- Global Accelerator maintains consistent endpoints
+- Route 53 + CloudWatch accurately detects failures
+- Lambda + SSM automate failover without manual intervention
+- Recovery process validated through testing
 
-- Managing IAM permissions across regional boundaries
+## 🔮 Future Improvements
 
-**Solution Requirements**
+- Multi-AZ replication for stronger resiliency
+- Load balancing between active-active regions
+- Automated cost optimisation checks
+- Integration with AWS Backup service
 
-**Phase 1: Infrastructure as Code Implementation**
-- Resource Definition
+## 🛠️ Technologies Used
 
-- Create Terraform configurations for multi-region deployment
+- **Terraform** – Infrastructure as Code
+- **AWS Global Accelerator** – Static IP failover routing
+- **Amazon Route 53** – Health checks
+- **Amazon CloudWatch** – Monitoring & alarms
+- **AWS SNS** – Notifications
+- **AWS Lambda** – Event-driven automation
+- **AWS Systems Manager (SSM)** – Recovery automation
 
-- Define networking components in both primary and secondary regions
+## 📜 Lessons Learned
 
-- Configure Global Accelerator for consistent endpoint access
+- Multi-region Terraform requires careful provider configuration
+- IAM permissions are critical for cross-region automation
+- CloudWatch alarm thresholds must be tuned to avoid false positives
+- Automation testing is as important as infrastructure setup
 
-- Web Server Implementation
-
-- Deploy primary web server in active state
-
-- Configure secondary server in stopped state (pilot light)
-
-- Set up security groups for appropriate access control
-
-**Phase 2: Monitoring System Configuration**
-- Health Check Setup
-
-- Implement Route53 health checks for application monitoring
-
-- Create CloudWatch alarms with appropriate thresholds
-
-- Configure SNS topics for notification delivery
-
-- Alert Integration
-
-- Set up Lambda function with proper IAM permissions
-
-- Configure integration between SNS and Lambda
-
-- Test alarm propagation through the notification chain
-
-**Phase 3: Automated Recovery Development**
-- Automation Document Creation
-
-- Design SSM document with appropriate workflow steps
-
-- Configure proper parameter handling for cross-region operations
-
-- Include verification steps for recovery confirmation
-
-- Endpoint Management
-
-- Configure Global Accelerator endpoint weights
-
-- Implement automation for traffic shifting during failover
-
-- Ensure client IP preservation during endpoint transitions
-
-**Phase 4: Testing and Validation**
-- Failure Scenario Testing
-
-- Simulate primary web server failure
-
-- Verify automatic detection and notification
-
-- Measure recovery time and endpoint consistency
-
-- Integration Verification
-
-- Confirm Lambda function properly processes alerts
-
-- Verify SSM document executes all required steps
-
-- Ensure Global Accelerator properly redirects traffic
+👉 This project showcases my ability to **design, implement, and automate disaster recovery in AWS** with production-grade tooling.
