@@ -8,7 +8,8 @@ The solution was built with **Terraform** for infrastructure as code, **CloudWat
 
 ## 🏗️ Architecture Overview
 
-![CloudSleuth AWS Disaster Recovery Architecture](architecture/CloudSleuth%20Architecture.jpeg)
+![CloudSleuth AWS Disaster Recovery Architecture](CloudSleuth%20Architecture.jpeg)
+
 
 ## 🚀 Project Phases
 
